@@ -1,0 +1,36 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url 'http://repo.spring.io/snapshot' }
+        maven { url 'http://repo.spring.io/milestone' }
+    }
+    dependencies {
+        classpath('org.springframework.boot:spring-boot-gradle-plugin:1.4.3.RELEASE')
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'project-report'
+
+jar {
+    baseName = 'rbac-model'
+    version =  '0.0.1-SNAPSHOT'
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "http://repo.spring.io/snapshot" }
+    maven { url "http://repo.spring.io/milestone" }
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter")
+    compile("org.springframework.boot:spring-boot-starter-jdbc")
+    compile("io.github.huherto:springyRecords:1.04-SNAPSHOT")
+    compile("com.fasterxml.jackson.core:jackson-core:2.8.6")
+    compile("com.fasterxml.jackson.core:jackson-databind:2.8.6")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+}

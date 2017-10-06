@@ -27,10 +27,20 @@ repositories {
 }
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter")
-    compile("org.springframework.boot:spring-boot-starter-jdbc")
-    compile("io.github.huherto:springyRecords:1.04-SNAPSHOT")
     compile("com.fasterxml.jackson.core:jackson-core:2.8.6")
     compile("com.fasterxml.jackson.core:jackson-databind:2.8.6")
+    compile("io.github.huherto:springyRecords:1.04-SNAPSHOT")
+    compile("org.springframework.boot:spring-boot-devtools")
+    compile("org.springframework.boot:spring-boot-starter")
+    compile("org.springframework.boot:spring-boot-starter-actuator")    
+    compile("org.springframework.boot:spring-boot-starter-jdbc")
+    compile("org.springframework.boot:spring-boot-starter-mustache")
+    compile("org.springframework.boot:spring-boot-starter-security")    
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.hsqldb:hsqldb:2.4.0")
+    compile("org.webjars:bootstrap:3.3.7-1")
+    testCompile("junit:junit")
     testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile("org.springframework.security:spring-security-test")    
+
 }

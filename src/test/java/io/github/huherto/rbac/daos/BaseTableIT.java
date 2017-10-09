@@ -11,7 +11,7 @@ public class BaseTableIT {
 
     public BaseDatabase database() {
         if (database == null) {
-            database = new RBACDatabase(createDs());
+            database = new RbacDatabase(createDs());
         }
         return database;
     }

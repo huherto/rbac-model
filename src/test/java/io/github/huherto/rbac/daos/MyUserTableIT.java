@@ -1,10 +1,9 @@
 package io.github.huherto.rbac.daos;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
-
-import io.github.huherto.rbac.daos.MyUserTable;
 
 public class MyUserTableIT extends BaseTableIT {
 
@@ -15,6 +14,16 @@ public class MyUserTableIT extends BaseTableIT {
     @Test
     public void testNotNull() {
         assertNotNull(table());
+
+    }
+
+    @Test
+    public void testFakeData() {
+
+        table().makeFakeData();
+
+        assertEquals(1, table().queryAll().size());
+
     }
 
 

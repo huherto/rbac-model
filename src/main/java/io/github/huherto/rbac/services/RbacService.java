@@ -18,5 +18,11 @@ public class RbacService {
         return rbacDatabase.myUserTable().queryAll();
     }
 
+    public void makeFakeData() {
+        
+        rbacDatabase.myUserTable().makeFakeData();
+        
+    }
+
 
 }

@@ -1,0 +1,15 @@
+endpoints:
+  env:
+    keys-to-santize: password,proxy
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+logging:
+  level:
+    org.springframework.boot: DEBUG
+server:
+  tomcat:
+    baseDir: .
+    accesslog:
+      enabled: true
+      buffered: false

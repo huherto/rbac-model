@@ -48,8 +48,16 @@ public class RbacController {
         return "actors";
     }
 
+    
+    boolean usersInitialized = false;
+    
     @GetMapping("/users")
     public String users(Model model) {
+        
+        if (!usersInitialized) {            
+            rbacService.makeFakeData();
+            usersInitialized = true;
+        }
         
         model.addAttribute("users", rbacService.getAllUsers() );
         

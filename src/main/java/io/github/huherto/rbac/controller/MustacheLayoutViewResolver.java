@@ -24,15 +24,15 @@ import io.github.huherto.rbac.util.StringUtils;
 
 @Component
 public class MustacheLayoutViewResolver extends MustacheViewResolver{
-	
+
 	private static final Log logger = LogFactory.getLog(MustacheLayoutViewResolver.class);
-	
+
 	public MustacheLayoutViewResolver(Compiler mustacheCompiler, MustacheProperties mustache) {
 		logger.info("Creating MustacheLayoutViewResolver");
 		mustache.applyToViewResolver(this);
 		setCharset(mustache.getCharsetName());
 		setCompiler(mustacheCompiler);
-		setOrder(Ordered.LOWEST_PRECEDENCE - 10);		
+		setOrder(Ordered.LOWEST_PRECEDENCE - 10);
 		setExposeSessionAttributes(true);
 	}
 
@@ -40,51 +40,53 @@ public class MustacheLayoutViewResolver extends MustacheViewResolver{
 	protected Class<?> requiredViewClass() {
 		return MustacheLayoutView.class;
 	}
-	
+
 	@Override
 	protected View loadView(String viewName, Locale locale) throws Exception {
-		
+
 		logger.debug("loadView("+viewName+","+locale+")");
 		MustacheLayoutView layoutView = (MustacheLayoutView) super.loadView(viewName, locale);
 		if (layoutView == null) {
 			return null;
 		}
-		
+
 		if (StringUtils.safeEquals("login", viewName )) {
 			return layoutView;
 		}
-		
+
 		logger.debug("resolveResource()");
 		Resource resource = resolveResource("layout", locale);
 		if (resource == null) {
 			return layoutView;
 		}
-			
+
 		logger.debug("setLayoutTemplate()");
 		layoutView.setLayoutTemplate(createTemplate(resource));
-		
+
 		return layoutView;
 	}
 
 	/**
-	 * All these were copied and pasted from the super class since resolvedResources() and createTemplate() were private.  
+	 * All these were copied and pasted from the super class since resolvedResources() and createTemplate() were private.
 	 */
-	
+
 	private Compiler compiler = Mustache.compiler();
 
 	private String charset;
-		
 
-	public void setCompiler(Compiler compiler) {
+
+	@Override
+    public void setCompiler(Compiler compiler) {
 		this.compiler = compiler.defaultValue("__MISSING_VALUE__");
 		super.setCompiler(this.compiler);
 	}
 
-	public void setCharset(String charset) {
+	@Override
+    public void setCharset(String charset) {
 		super.setCharset(charset);
 		this.charset = charset;
 	}
-	
+
 	private Resource resolveResource(String viewName, Locale locale) {
 		return resolveFromLocale(viewName, getLocale(locale));
 	}
@@ -127,5 +129,5 @@ public class MustacheLayoutViewResolver extends MustacheViewResolver{
 		}
 		return new InputStreamReader(resource.getInputStream());
 	}
-	
+
 }

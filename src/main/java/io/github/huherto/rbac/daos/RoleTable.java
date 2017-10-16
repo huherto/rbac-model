@@ -20,5 +20,9 @@ public class RoleTable extends BaseRoleTable {
         nr.setRoleName("AUTH_ADMIN");
         this.insert(nr);
 
+        nr = new RoleRecord();
+        nr.setRoleName("AUTH_USER");
+        this.insert(nr);
+        
     }
 }

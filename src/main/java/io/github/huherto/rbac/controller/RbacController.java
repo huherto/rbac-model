@@ -9,8 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import io.github.huherto.rbac.daos.UserRoleRealmRecord;
 import io.github.huherto.rbac.services.RbacService;
 
 @Controller
@@ -65,11 +68,21 @@ public class RbacController {
     }
 
     @GetMapping("/user-roles")
-    public String userRoles(Model model) {
+    public String userRoles(@RequestParam Integer userId, Model model) {
 
-        model.addAttribute("userRoles", rbacService.getAllRolesForUser(0) );
+        model.addAttribute("userRoles", rbacService.getAllRolesForUser(userId) );
 
         return "user-roles";
     }
+    
+    @GetMapping("/delete-user-role")
+    public String deleteUserRole(@RequestParam Integer userRoleRealmId, Model model) {
+
+        logger.debug("start deleteUserRole(userRoleRealmId="+userRoleRealmId+")");
+        UserRoleRealmRecord userRoleRealm = rbacService.deleteUserRole(userRoleRealmId);
+
+        return userRoles(userRoleRealm.getUserId(), model);
+    }
+    
 }
 

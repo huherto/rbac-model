@@ -24,6 +24,6 @@ public class BaseTableIT {
                 .setType(EmbeddedDatabaseType.HSQL)
                 .addScript("classpath:hsql-schema.sql")
                 .build();
-    }
+    }        
 
 }

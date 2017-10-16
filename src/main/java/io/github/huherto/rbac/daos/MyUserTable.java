@@ -38,7 +38,21 @@ public class MyUserTable extends BaseMyUserTable {
 
         this.insert(nr);
 
+        for(int i = 0; i < 100; i++) {
+            nr = new MyUserRecord();
+            nr.setUserId(1);
+            nr.setLoginName("sue");
+            nr.setConfirmValue("");
+            nr.setEmail("sue@example.com");
+            nr.setFirstName("Sue");
+            nr.setLastName("Williams");
+            nr.setLastLogin(new Timestamp(localtime));
+            nr.setModifed(new Timestamp(localtime));
+            nr.setPasswordValue("****");
+            nr.setCreated(new Timestamp(localtime));
 
+            this.insert(nr);
+        }
     }
 
 }

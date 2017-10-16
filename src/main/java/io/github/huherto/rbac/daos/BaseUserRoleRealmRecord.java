@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BaseUserRoleRealmRecord implements BaseRecord {
-    private int userRoleDomainId;
+    private int userRoleRealmId;
     private int userId;
     private int roleId;
     private String realm;
@@ -15,25 +15,25 @@ public class BaseUserRoleRealmRecord implements BaseRecord {
     }
 
     public BaseUserRoleRealmRecord(BaseUserRoleRealmRecord other) {
-        this.userRoleDomainId = other.userRoleDomainId;
+        this.userRoleRealmId = other.userRoleRealmId;
         this.userId = other.userId;
         this.roleId = other.roleId;
         this.realm = other.realm;
     }
 
     public BaseUserRoleRealmRecord(ResultSet rs, int rowNum) throws SQLException {
-        this.userRoleDomainId = rs.getInt("USER_ROLE_DOMAIN_ID");
+        this.userRoleRealmId = rs.getInt("USER_ROLE_REALM_ID");
         this.userId = rs.getInt("USER_ID");
         this.roleId = rs.getInt("ROLE_ID");
         this.realm = rs.getString("REALM");
     }
 
-    public int getUserRoleDomainId() {
-        return userRoleDomainId;
+    public int getUserRoleRealmId() {
+        return userRoleRealmId;
     }
 
-    public void setUserRoleDomainId(int userRoleDomainId) {
-        this.userRoleDomainId = userRoleDomainId;
+    public void setUserRoleRealmId(int userRoleRealmId) {
+        this.userRoleRealmId = userRoleRealmId;
     }
 
     public int getUserId() {
@@ -64,7 +64,7 @@ public class BaseUserRoleRealmRecord implements BaseRecord {
     @Override
     public Map<String, Object> asMap() {
         Map<String, Object> map = new HashMap<>();
-        map.put("USER_ROLE_DOMAIN_ID", this.userRoleDomainId);
+        map.put("USER_ROLE_REALM_ID", this.userRoleRealmId);
         map.put("USER_ID", this.userId);
         map.put("ROLE_ID", this.roleId);
         map.put("REALM", this.realm);

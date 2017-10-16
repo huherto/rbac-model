@@ -18,7 +18,7 @@ public class RbacController {
 
 	private static final Log logger = LogFactory.getLog(RbacController.class);
 
-	
+
 	@Autowired
 	RbacService rbacService;
 
@@ -36,7 +36,7 @@ public class RbacController {
     public String index() {
         return "index";
     }
-    
+
     @RequestMapping("/login")
     public String login(Model model) {
     	logger.debug("set view name to login."+model);
@@ -48,20 +48,28 @@ public class RbacController {
         return "actors";
     }
 
-    
+
     boolean usersInitialized = false;
-    
+
     @GetMapping("/users")
     public String users(Model model) {
-        
-        if (!usersInitialized) {            
+
+        if (!usersInitialized) {
             rbacService.makeFakeData();
             usersInitialized = true;
         }
-        
+
         model.addAttribute("users", rbacService.getAllUsers() );
-        
+
         return "users";
+    }
+
+    @GetMapping("/user-roles")
+    public String userRoles(Model model) {
+
+        model.addAttribute("userRoles", rbacService.getAllRolesForUser(0) );
+
+        return "user-roles";
     }
 }
 

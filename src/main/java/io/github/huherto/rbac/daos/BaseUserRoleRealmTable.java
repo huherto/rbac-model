@@ -31,12 +31,12 @@ public class BaseUserRoleRealmTable extends AbstractBaseTable<UserRoleRealmRecor
         return "USER_ROLE_REALM";
     }
 
-    public Optional<UserRoleRealmRecord> findByPK(int userRoleDomainId) {
+    public Optional<UserRoleRealmRecord> findByPK(int userRoleRealmId) {
         String sql =
             selectStar() +
-            "where USER_ROLE_DOMAIN_ID  = ? ";
+            "where USER_ROLE_REALM_ID  = ? ";
 
-        return optionalSingle(sql, userRoleDomainId);
+        return optionalSingle(sql, userRoleRealmId);
     }
     
     public List<UserRoleRealmRecord> findByRoleId(int roleId) {
@@ -55,12 +55,12 @@ public class BaseUserRoleRealmTable extends AbstractBaseTable<UserRoleRealmRecor
         return query(sql, userId);
     }
     
-    public List<UserRoleRealmRecord> findByUserRoleDomainId(int userRoleDomainId) {
+    public List<UserRoleRealmRecord> findByUserRoleRealmId(int userRoleRealmId) {
         String sql =
             selectStar() +
-            "where USER_ROLE_DOMAIN_ID  = ? ";
+            "where USER_ROLE_REALM_ID  = ? ";
 
-        return query(sql, userRoleDomainId);
+        return query(sql, userRoleRealmId);
     }
     
     

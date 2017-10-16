@@ -1,0 +1,10 @@
+spring:
+  mustache:
+    prefix: file:src/main/resources/templates/ 
+  resources:
+    static-locations: 'file:src/main/resources/static/'
+    cache-period: 0
+logging:
+  level:
+    org.springframework.boot: DEBUG
+    io.github.huherto: DEBUG

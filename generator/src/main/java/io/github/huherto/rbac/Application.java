@@ -28,7 +28,7 @@ public class Application implements CommandLineRunner {
 
 	private void generateExample() {
 
-	    String packageName = "io.github.huherto.rbac";
+	    String packageName = "io.github.huherto.rbac.daos";
 	    String databaseClassName = "RBAC";
 	    SchemaCrawlerGenerator dbGenerator = new SchemaCrawlerGenerator(dataSource(), packageName, databaseClassName);
 

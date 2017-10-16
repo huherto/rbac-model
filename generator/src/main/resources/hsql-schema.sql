@@ -31,7 +31,7 @@ CREATE TABLE ROLE_PERM (
 );
 
 CREATE TABLE USER_ROLE_REALM (
-   USER_ROLE_DOMAIN_ID integer identity not null primary key,
+   USER_ROLE_REALM_ID integer identity not null primary key,
    USER_ID integer NOT NULL references MY_USER,
    ROLE_ID integer NOT NULL references ROLE,
    REALM varchar(40) NOT NULL,

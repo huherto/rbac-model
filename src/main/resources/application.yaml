@@ -3,10 +3,7 @@ endpoints:
     keys-to-santize: password,proxy
 spring:
   jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
-logging:
-  level:
-    org.springframework.boot: DEBUG
+    date-format: 'yyyy-MM-dd HH:mm:ss'
 server:
   tomcat:
     baseDir: .

@@ -2,10 +2,12 @@ package io.github.huherto.rbac.daos;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.Optional;
 
 import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class MyUserTable extends BaseMyUserTable {
     public MyUserTable(DataSource dataSource) {
@@ -21,10 +23,12 @@ public class MyUserTable extends BaseMyUserTable {
 
     public void makeFakeData() {
 
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(11);
+
         MyUserRecord nr = new MyUserRecord();
 
         long localtime = Calendar.getInstance().getTime().getTime();
-
+        
         nr.setUserId(0);
         nr.setLoginName("john");
         nr.setConfirmValue("");
@@ -33,7 +37,7 @@ public class MyUserTable extends BaseMyUserTable {
         nr.setLastName("Smith");
         nr.setLastLogin(new Timestamp(localtime));
         nr.setModifed(new Timestamp(localtime));
-        nr.setPasswordValue("****");
+        nr.setPasswordValue(encoder.encode("john"));
         nr.setCreated(new Timestamp(localtime));
 
         this.insert(nr);
@@ -53,6 +57,13 @@ public class MyUserTable extends BaseMyUserTable {
 
             this.insert(nr);
         }
+    }
+
+    public Optional<MyUserRecord> findByLoginName(String username) {
+        
+        String sql = selectStar() + " where LOGIN_NAME = ?";
+        return optionalSingle(sql, username);
+        
     }
 
 }

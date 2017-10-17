@@ -6,5 +6,8 @@ spring:
     cache-period: 0
 logging:
   level:
-    org.springframework.boot: INFO
+    org.springframework:
+      boot: INFO
+      security:
+        authentication: DEBUG
     io.github.huherto: DEBUG

@@ -52,7 +52,7 @@ public class RbacController {
     }
 
 
-    boolean usersInitialized = false;
+    boolean usersInitialized = true; // TODO: Remove
 
     @GetMapping("/users")
     public String users(Model model) {

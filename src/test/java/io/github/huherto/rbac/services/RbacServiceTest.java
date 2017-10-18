@@ -1,48 +1,33 @@
 package io.github.huherto.rbac.services;
 
-import javax.sql.DataSource;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.test.context.support.WithUserDetails;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import io.github.huherto.rbac.daos.RbacDatabase;
-
 @RunWith(SpringRunner.class)
-@WithUserDetails
-@SpringBootTest
+@WithUserDetails("john")
+@SpringBootTest(webEnvironment=WebEnvironment.NONE)
 public class RbacServiceTest {
 
-    private static RbacDatabase database = null;
-
-    public RbacDatabase database() {
-        if (database == null) {
-            database = new RbacDatabase(createDs());
-        }
-        return database;
-    }
-
-    protected DataSource createDs() {
-
-        // Replace this with your own datasource.
-        return new EmbeddedDatabaseBuilder()
-                .setName("test")
-                .setType(EmbeddedDatabaseType.HSQL)
-                .addScript("classpath:hsql-schema.sql")
-                .build();
-    }
-
-    RbacService rbacService = new RbacService();
+    @Autowired
+    RbacService rbacService;
 
     @Test
     public void makeFakeData() {
-        
-        rbacService.rbacDatabase = database();
 
-        rbacService.makeFakeData();
+        // rbacService.makeFakeData();
+
+        SecurityContextHolderAwareRequestWrapper;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+
+        }
     }
 }

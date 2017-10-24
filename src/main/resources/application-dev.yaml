@@ -10,4 +10,5 @@ logging:
       boot: INFO
       security:
         authentication: DEBUG
+      web: DEBUG
     io.github.huherto: DEBUG

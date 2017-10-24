@@ -22,7 +22,7 @@
                 <td>{{realm}}</td>
                 <td>{{roleId}}</td>
                 <td>{{roleName}}</td>
-                <td><a href="/delete-user-role.html?userRoleRealmId={{userRoleRealmId}}"><button type="button" class="btn btn-primary">Delete</button></a></td>
+                <td><a href="/delete-user-roles.html?userRoleRealmId={{userRoleRealmId}}"></a><button type="button" class="btn btn-primary delete-role" id="{{userRoleRealmId}}">Delete</button></td>
               </tr>
               {{/userRoles}}
             </tbody>
@@ -31,6 +31,49 @@
       </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Remove role confirmation </h4>
+            </div>
+            <div class="modal-body">
+              <form method="post" action="delete-user-role.html" id="idOfForm">
+                Do you want to remove the role ?
+                <input type="hidden" name="" id="userRoleRealmId"/>
+              </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary" id="confirm-delete">Yes</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<script>
+$current = -1;
+$(".delete-role").click(function()  {
+  console.log("click "+this.id);
+  $( "#myModal" ).modal('show');
+  $current = this.id;
+});
+$("#confirm-delete").click(function () {
+  console.log("confirm-delete="+$current);
+  $current = -1;
+  $("#userRoleRealmId").val($current);
+  $("#myModal").modal('hide');
+  $("#idOfForm").submit();
+})
+
+</script>
+
+
 <script>
 $(document).ready(function() {
     $('#dataTables-user-roles').DataTable({

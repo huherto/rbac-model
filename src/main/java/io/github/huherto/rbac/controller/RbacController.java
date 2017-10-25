@@ -87,7 +87,7 @@ public class RbacController {
 
         return userRoles(userRoleRealm.getUserId(), model);
     }
-    
+
     @PostMapping("/new-user-role")
     public String newUserRole(@RequestParam Integer userId, @RequestParam String realmField, @RequestParam Integer roleId, Model model) {
 

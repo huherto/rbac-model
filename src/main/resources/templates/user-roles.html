@@ -35,21 +35,11 @@
     </div>
 </div>
 
-<form method="post" action="delete-user-role.html" id="deleteRoleForm">
-  <input type="hidden" name="userRoleRealmId" id="userRoleRealmId" value="123"/>
-</form>
-
-<form method="post" action="new-user-role.html" id="newRoleForm">
-  <input type="hidden" name="userId" id="userId" value="{{user.userId}}"/>
-  <input type="hidden" name="realmField" id="realmField" value=""/>
-  <input type="hidden" name="roleField" id="roleField" value="" />  
-</form>
-
 <script>
 
 $(".delete-role").click(function()  {
 
-  $("#userRoleRealmId").val(this.id);
+  var tobeDeleted = this.id;
 
   bootbox.confirm({
       message: "Please confirm role deletion",
@@ -64,18 +54,24 @@ $(".delete-role").click(function()  {
           }
       },
       callback: function (result) {
-          console.log('This was logged in the callback: ' + result);
           if (result) {
-
-            $.post("user/"+result)
-
-            $("#deleteRoleForm").submit();            
+            postDeleteRole(tobeDeleted);
           }
       }
   });  
 
 });
 
+function postDeleteRole(tobeDeleted) {
+
+  $.post(
+    "delete-user-role.html", 
+    { userRoleRealmId:  tobeDeleted } )
+  .done(function() { 
+    location.reload(); 
+  } );  
+
+}
 
 $("#new-role-button").click(function () {
 
@@ -97,14 +93,26 @@ $("#new-role-button").click(function () {
     callback: function (result) {
         console.log("selected:"+result);
         if (result !== '') {
-            $("#realmField").val("GLOBAL");            
-            $("#roleId").val(result);
-            $("#newRoleForm").submit();            
+          postNewRole(result);
         }
     }
   });
 
 });
+
+function postNewRole(roleId) {
+
+  $.post(
+    "new-user-role.html", {
+        userId: {{user.userId}},
+        realmField:  "GLOBAL",
+        roleId: roleId,       
+   } )
+  .done(function() { 
+    location.reload(); 
+  } );  
+
+}
 
 $(document).ready(function() {
     $('#dataTables-user-roles').DataTable({

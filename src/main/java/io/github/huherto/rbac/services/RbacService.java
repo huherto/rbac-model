@@ -55,7 +55,25 @@ public class RbacService {
         
         rbacDatabase.userRoleRealmTable().deleteByPK(userRoleRealmId);
         
-        return userRoleRealm;
+        return userRoleRealm;        
+    }
+
+    public MyUserRecord getUser(Integer userId) {
+        return rbacDatabase.myUserTable().findByPK(userId).get();
+    }
+
+    public List<RoleRecord> getAllRoles() {
+        return rbacDatabase.roleTable().queryAll();
+    }
+
+    public UserRoleRealmRecord addNewRole(Integer userId, String realmField, Integer roleField) {
         
+        UserRoleRealmRecord nr = new UserRoleRealmRecord();
+        nr.setUserId(userId);
+        nr.setRoleId(roleField);
+        nr.setRealm(realmField);
+        Integer pk = (Integer) rbacDatabase.userRoleRealmTable().insertAndReturnKey(nr);    
+
+        return rbacDatabase.userRoleRealmTable().findByPK(pk).orElseThrow( () -> new RuntimeException("Insert failed") );
     }
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import io.github.huherto.rbac.daos.UserRoleRealmRecord;
 import io.github.huherto.rbac.services.RbacService;
+import io.github.huherto.rbac.util.StringUtils;
 
 @Controller
 public class RbacController {
@@ -71,6 +72,8 @@ public class RbacController {
     public String userRoles(@RequestParam Integer userId, Model model) {
 
         model.addAttribute("userRoles", rbacService.getAllRolesForUser(userId) );
+        model.addAttribute("user", rbacService.getUser(userId) );
+        model.addAttribute("allroles", rbacService.getAllRoles());
 
         return "user-roles";
     }
@@ -83,6 +86,16 @@ public class RbacController {
         UserRoleRealmRecord userRoleRealm = rbacService.deleteUserRole(userRoleRealmId);
 
         return userRoles(userRoleRealm.getUserId(), model);
+    }
+    
+    @PostMapping("/new-user-role")
+    public String newUserRole(@RequestParam Integer userId, @RequestParam String realmField, @RequestParam Integer roleId, Model model) {
+
+        logger.debug("start newUserRole("+realmField+","+roleId+")");
+        
+        UserRoleRealmRecord userRoleRealm = rbacService.addNewRole(userId, realmField, roleId );
+
+        return userRoles(userId, model);
     }
     
 }

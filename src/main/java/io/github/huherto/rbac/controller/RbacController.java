@@ -75,7 +75,7 @@ public class RbacController {
         return "user-roles";
     }
     
-    @RequestMapping("/delete-user-role")
+    @PostMapping("/delete-user-role")
     public String deleteUserRole(@RequestParam Integer userRoleRealmId, Model model) {
 
         logger.debug("start deleteUserRole(userRoleRealmId="+userRoleRealmId+")");

@@ -9,19 +9,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import io.github.huherto.rbac.daos.UserRoleRealmRecord;
 import io.github.huherto.rbac.services.RbacService;
-import io.github.huherto.rbac.util.StringUtils;
 
 @Controller
-public class RbacController {
+public class UserInterfaceController {
 
-	private static final Log logger = LogFactory.getLog(RbacController.class);
+	private static final Log logger = LogFactory.getLog(UserInterfaceController.class);
 
 
 	@Autowired
@@ -78,25 +74,6 @@ public class RbacController {
         return "user-roles";
     }
     
-    @PostMapping("/delete-user-role")
-    public String deleteUserRole(@RequestParam Integer userRoleRealmId, Model model) {
-
-        logger.debug("start deleteUserRole(userRoleRealmId="+userRoleRealmId+")");
-        
-        UserRoleRealmRecord userRoleRealm = rbacService.deleteUserRole(userRoleRealmId);
-
-        return userRoles(userRoleRealm.getUserId(), model);
-    }
-
-    @PostMapping("/new-user-role")
-    public String newUserRole(@RequestParam Integer userId, @RequestParam String realmField, @RequestParam Integer roleId, Model model) {
-
-        logger.debug("start newUserRole("+realmField+","+roleId+")");
-        
-        UserRoleRealmRecord userRoleRealm = rbacService.addNewRole(userId, realmField, roleId );
-
-        return userRoles(userId, model);
-    }
     
 }
 

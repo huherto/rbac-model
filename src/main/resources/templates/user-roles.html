@@ -2,9 +2,10 @@
     <div class="col-lg-12">
         <h1 class="page-header">User Roles</h1>
         <h3>List roles for {{user.firstName}} {{user.lastName}}</h3>
+        <div id="successMessage" class="alert alert-success hidden"></div>
       <div class="panel panel-default">
         <div class="panel-heading">
-          Roles
+          Roles             
         </div>
         <div class="panel-body">
           <div class="row">
@@ -36,6 +37,13 @@
 </div>
 
 <script>
+
+function success(message) {
+
+  $("#successMessage").text(message);
+  $("#successMessage").removeClass('hidden');
+
+}
 
 $(".delete-role").click(function()  {
 
@@ -100,6 +108,8 @@ $("#new-role-button").click(function () {
 
 });
 
+var $successMessage;
+
 function postNewRole(roleId) {
 
   $.post(
@@ -108,7 +118,8 @@ function postNewRole(roleId) {
         realmField:  "GLOBAL",
         roleId: roleId,       
    } )
-  .done(function() { 
+  .done(function(data) { 
+    $successMessage = data;
     location.reload(); 
   } );  
 
@@ -120,6 +131,10 @@ $(document).ready(function() {
         "iDisplayLength": 50,
         "paging": false,
     });
+
+    if (typeof $successMessage != "undefined") {
+      success($successMessage+" HHH");      
+    }
 });
 
 </script>

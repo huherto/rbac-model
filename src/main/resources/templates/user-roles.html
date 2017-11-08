@@ -38,12 +38,6 @@
 
 <script>
 
-function success(message) {
-
-  $("#successMessage").text(message);
-  $("#successMessage").removeClass('hidden');
-
-}
 
 $(".delete-role").click(function()  {
 
@@ -75,8 +69,8 @@ function postDeleteRole(tobeDeleted) {
   $.post(
     "delete-user-role.html", 
     { userRoleRealmId:  tobeDeleted } )
-  .done(function() { 
-    location.reload(); 
+  .done(function(data) { 
+    reloadSuccess(data);
   } );  
 
 }
@@ -108,8 +102,6 @@ $("#new-role-button").click(function () {
 
 });
 
-var $successMessage;
-
 function postNewRole(roleId) {
 
   $.post(
@@ -119,21 +111,36 @@ function postNewRole(roleId) {
         roleId: roleId,       
    } )
   .done(function(data) { 
-    $successMessage = data;
-    location.reload(); 
+    reloadSuccess(data);
   } );  
 
 }
 
+function reloadSuccess(message) {
+    window.sessionStorage.setItem("successMessage", message);
+    location.reload();   
+}
+
+function success(message) {
+
+  $("#successMessage").text(message);
+  $("#successMessage").removeClass('hidden');
+
+}
+
 $(document).ready(function() {
+  
     $('#dataTables-user-roles').DataTable({
         responsive: true,
         "iDisplayLength": 50,
         "paging": false,
     });
 
-    if (typeof $successMessage != "undefined") {
-      success($successMessage+" HHH");      
+    var successMessage = sessionStorage.getItem("successMessage");
+
+    if (successMessage !== null) {
+      window.sessionStorage.removeItem("successMessage");
+      success(successMessage);      
     }
 });
 

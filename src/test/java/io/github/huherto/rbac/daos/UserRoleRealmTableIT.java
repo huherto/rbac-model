@@ -20,7 +20,7 @@ public class UserRoleRealmTableIT extends BaseTableIT {
     @Test
     public void testQueryRoleName() {
         
-        database().myUserTable().makeFakeData();
+        MyUserTableIT.makeFakeData(database().myUserTable());
         database().roleTable().makeFakeData();
 
         RoleRecord role = database().roleTable().queryAll().get(0);

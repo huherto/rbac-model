@@ -27,22 +27,6 @@ public class RbacService {
         return rbacDatabase.myUserTable().queryAll();
     }
 
-    @PostConstruct
-    public void makeFakeData() {
-
-        logger.debug("making fake data");
-        
-        rbacDatabase.myUserTable().makeFakeData();
-
-        rbacDatabase.roleTable().makeFakeData();
-
-        RoleRecord role = rbacDatabase.roleTable().queryAll().get(0);
-
-        for(MyUserRecord user : rbacDatabase.myUserTable().queryAll()) {
-            rbacDatabase.userRoleRealmTable().makeFakeData(user, role);
-        }
-    }
-
     public List<UserRoleNameRealm> getAllRolesForUser(int userId) {
         return rbacDatabase.userRoleRealmTable().findRoleWithNameByUserId(userId);
     }

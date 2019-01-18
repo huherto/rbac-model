@@ -19,7 +19,6 @@ public class UserInterfaceController {
 
 	private static final Log logger = LogFactory.getLog(UserInterfaceController.class);
 
-
 	@Autowired
 	RbacService rbacService;
 
@@ -55,7 +54,6 @@ public class UserInterfaceController {
     public String users(Model model) {
 
         if (!usersInitialized) {
-            rbacService.makeFakeData();
             usersInitialized = true;
         }
 
